@@ -1,7 +1,9 @@
+import { ThemeToggle } from "@/components/themeToggle";
+
 export default function Home() {
   return (
     <main>
-      <h1>Hello Nextjs!</h1>
+      <ThemeToggle />
     </main>
   );
 }
