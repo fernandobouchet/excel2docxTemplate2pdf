@@ -54,12 +54,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground h-screen;
   }
 }
 
 @layer components {
   .input_file {
-    @apply block w-full p-0 pr-4 file:rounded-xl file:font-medium file:h-full file:px-4 hover:file:cursor-pointer file:bg-secondary file:text-secondary-foreground file:mr-4 !important;
+    @apply block w-full p-0 pr-4 file:rounded-xl file:font-medium file:h-full file:px-4 hover:cursor-pointer file:bg-secondary file:text-secondary-foreground file:mr-4 !important;
   }
 }

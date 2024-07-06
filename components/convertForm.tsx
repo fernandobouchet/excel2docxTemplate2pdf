@@ -65,7 +65,10 @@ const ConvertForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col w-2/3 space-y-6"
+      >
         <FormField
           control={form.control}
           name="excelFile"
@@ -116,7 +119,7 @@ const ConvertForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Inciar</Button>
+        <Button type="submit">Iniciar</Button>
       </form>
     </Form>
   );
