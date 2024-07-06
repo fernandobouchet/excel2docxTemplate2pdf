@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import { getExcelDataToJson, onTemplateChosen } from "@/lib/functions";
 
 const FormSchema = z.object({
@@ -55,7 +56,13 @@ const ConvertForm = () => {
     try {
       const excelData = await getExcelDataToJson(data.excelFile);
       onTemplateChosen(data.wordFile[0], excelData);
+      toast.success(
+        `Se convirtieron ${
+          JSON.parse(excelData).length
+        } archivos exitosamente!.`
+      );
     } catch (error) {
+      toast.error("Hubo un error, por favor intentelo nuevamente.");
       console.log(error);
     }
   }
