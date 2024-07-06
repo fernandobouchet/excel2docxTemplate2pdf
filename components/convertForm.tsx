@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { getExcelDataToJson } from "@/lib/functions";
+import { getExcelDataToJson, onTemplateChosen } from "@/lib/functions";
 
 const FormSchema = z.object({
   excelFile:
@@ -53,9 +53,11 @@ const ConvertForm = () => {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      console.log(await getExcelDataToJson(data.excelFile));
-    } catch (error) {}
-    console.log(data);
+      const excelData = await getExcelDataToJson(data.excelFile);
+      onTemplateChosen(data.wordFile[0], excelData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const excelFileRef = form.register("excelFile");
