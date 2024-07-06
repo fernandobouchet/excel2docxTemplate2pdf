@@ -15,24 +15,51 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { getExcelDataToJson } from "@/lib/functions";
 
 const FormSchema = z.object({
-  excelFile: z.any(),
-  wordFile: z.any(),
+  excelFile:
+    typeof window === "undefined"
+      ? z.any()
+      : z
+          .instanceof(FileList)
+          .refine(
+            (files) => files?.length > 0,
+            "Se requiere el archivo de datos en formato *.xlsx."
+          )
+          .refine((files) => {
+            const fileExtension = files[0]?.name.split(".").pop();
+            return fileExtension && fileExtension === "xlsx";
+          }, "El archivo debe tener el formato indicado: *.xlsx."),
+  wordFile:
+    typeof window === "undefined"
+      ? z.any()
+      : z
+          .instanceof(FileList)
+          .refine(
+            (files) => files?.length > 0,
+            "Se requiere el archivo de plantilla en formato *.docx."
+          )
+          .refine((files) => {
+            const fileExtension = files[0]?.name.split(".").pop();
+            return fileExtension && fileExtension === "docx";
+          }, "El archivo debe tener el formato indicado: *.docx."),
 });
 
 const ConvertForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      excelFile: "",
-      wordFile: "",
-    },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      console.log(await getExcelDataToJson(data.excelFile));
+    } catch (error) {}
     console.log(data);
   }
+
+  const excelFileRef = form.register("excelFile");
+  const wordFileRef = form.register("wordFile");
 
   return (
     <Form {...form}>
@@ -44,10 +71,17 @@ const ConvertForm = () => {
             <FormItem>
               <FormLabel>Datos</FormLabel>
               <FormControl>
-                <Input {...field} type="file" />
+                <Input
+                  {...excelFileRef}
+                  type="file"
+                  accept=".xlsx"
+                  onChange={(e) => {
+                    field.onChange(e.target?.files?.[0] ?? undefined);
+                  }}
+                />
               </FormControl>
               <FormDescription>
-                Este es el archivo en formato &lsquo;.xlsx &lsquo; de donde se
+                Este es el archivo en formato &lsquo;*.xlsx &lsquo; de donde se
                 obtendrán los datos.
               </FormDescription>
               <FormMessage />
@@ -61,10 +95,17 @@ const ConvertForm = () => {
             <FormItem>
               <FormLabel>Plantilla</FormLabel>
               <FormControl>
-                <Input {...field} type="file" accept=".xlsx" />
+                <Input
+                  {...wordFileRef}
+                  type="file"
+                  accept=".docx"
+                  onChange={(e) => {
+                    field.onChange(e.target?.files?.[0] ?? undefined);
+                  }}
+                />
               </FormControl>
               <FormDescription>
-                Este es el archivo en formato &lsquo;.docx &lsquo; que servirá
+                Este es el archivo en formato &lsquo;*.docx &lsquo; que servirá
                 de plantilla donde se colocarán los datos.
               </FormDescription>
               <FormMessage />
