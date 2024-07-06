@@ -1,15 +1,19 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-import { Button } from "@/components/ui/button";
+import { invoke } from "@tauri-apps/api/tauri";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const handleOnClick = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    let newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    invoke("plugin:theme|set_theme", {
+      theme: newTheme,
+    });
   };
 
   return (
