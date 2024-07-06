@@ -80,6 +80,7 @@ const ConvertForm = () => {
                   onChange={(e) => {
                     field.onChange(e.target?.files?.[0] ?? undefined);
                   }}
+                  className="input_file"
                 />
               </FormControl>
               <FormDescription>
@@ -104,6 +105,7 @@ const ConvertForm = () => {
                   onChange={(e) => {
                     field.onChange(e.target?.files?.[0] ?? undefined);
                   }}
+                  className="input_file"
                 />
               </FormControl>
               <FormDescription>
