@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { getExcelDataToJson, onTemplateChosen } from "@/lib/functions";
+import { getXlsxDataToJson } from "@/services/xlxsService";
+import { getFilledTemplates } from "@/services/docxService";
+import { getAndDownloadAllFiles } from "@/services/fileService";
 
 const FormSchema = z.object({
   excelFile:
@@ -54,12 +55,14 @@ const ConvertForm = () => {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      const excelData = await getExcelDataToJson(data.excelFile);
-      onTemplateChosen(data.wordFile[0], excelData);
+      const excelData = await getXlsxDataToJson(data.excelFile);
+      const modifiedFiles = await getFilledTemplates(
+        data.wordFile[0],
+        excelData
+      );
+      const files = getAndDownloadAllFiles(modifiedFiles);
       toast.success(
-        `Se convirtieron ${
-          JSON.parse(excelData).length
-        } archivos exitosamente!.`
+        `Se convirtieron ${modifiedFiles.length} archivos exitosamente!.`
       );
     } catch (error) {
       toast.error("Hubo un error, por favor intentelo nuevamente.");
