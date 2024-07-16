@@ -64,4 +64,16 @@ const getFilledTemplates = async (file: File, fileData: string) => {
   }
 };
 
-export { getFilledTemplates };
+const createDocxFileFromUpdatedTemplate = (file: {
+  report: Uint8Array;
+  fileName: string;
+}) => {
+  const newFile = new File([file.report], file.fileName, {
+    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    lastModified: Date.now(),
+  });
+
+  return newFile;
+};
+
+export { getFilledTemplates, createDocxFileFromUpdatedTemplate };
