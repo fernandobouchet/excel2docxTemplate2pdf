@@ -1,4 +1,4 @@
-import { ConvertForm } from "@/components/convertForm";
+import { ConvertForm } from "@/components/form/convertForm";
 import { ThemeToggle } from "@/components/themeToggle";
 
 export default function Home() {
