@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormSchema } from "./formSchema";
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { toast } from "sonner";
 import { getXlsxDataToJson } from "@/services/xlxsService";
@@ -14,6 +13,8 @@ import { CheckboxPdfConfirmation } from "@/components/form/checkboxPdfConfirmati
 import { InputXlxsFile } from "./inputXlxsFile";
 import { InputDocxTemplate } from "./inputDocxTemplate";
 import { LoadingToast } from "../loadingToast";
+import { SubmitButton } from "./submitButton";
+import { useState } from "react";
 
 const ConvertForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -23,7 +24,10 @@ const ConvertForm = () => {
     },
   });
 
+  const [loading, setLoading] = useState(false);
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setLoading(true);
     try {
       let xlxsData = data.excelFile;
       let docxTemplate = data.wordFile[0];
@@ -67,6 +71,7 @@ const ConvertForm = () => {
       toast.error("Hubo un error, por favor intentelo nuevamente.");
       console.log(error);
     }
+    setLoading(false);
   }
 
   return (
@@ -78,7 +83,7 @@ const ConvertForm = () => {
         <InputXlxsFile form={form} />
         <InputDocxTemplate form={form} />
         <CheckboxPdfConfirmation form={form} />
-        <Button type="submit">Iniciar</Button>
+        <SubmitButton type="submit" loading={loading} />
       </form>
     </Form>
   );
