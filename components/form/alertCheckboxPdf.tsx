@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { Button } from "../ui/button";
-import Link from "next/link";
 
 const AlertCheckboxPdf = () => {
   return (
@@ -25,13 +24,13 @@ const AlertCheckboxPdf = () => {
           <AlertDialogDescription>
             Para poder convertir los archivos a PDF es necesario tener instalado
             el paquete{" "}
-            <Link
+            <a
               href="https://es.libreoffice.org/"
               target="_blank"
               className="font-bold underline"
             >
               libreoffice
-            </Link>{" "}
+            </a>{" "}
             en el sistema operativo.
           </AlertDialogDescription>
         </AlertDialogHeader>
