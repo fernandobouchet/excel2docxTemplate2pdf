@@ -60,7 +60,9 @@ const ConvertForm = () => {
         }...`,
         "Los archivos fueron convertidos y descargados exitosamente!",
         `Error al convertir y descargar los archivos en formato ${
-          convertToPdf ? "PDF" : "DOCX"
+          convertToPdf
+            ? "PDF, por favor revisa si cumples con los requisitos"
+            : "DOCX"
         }.`
       );
 
