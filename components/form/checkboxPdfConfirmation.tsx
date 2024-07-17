@@ -9,6 +9,7 @@ import {
   FormLabel,
   FormDescription,
 } from "@/components/ui/form";
+import { AlertCheckboxPdf } from "./alertCheckboxPdf";
 
 interface Props {
   form: UseFormReturn<
@@ -37,10 +38,10 @@ const CheckboxPdfConfirmation = ({ form }: Props) => {
             />
           </FormControl>
           <div className="space-y-1 leading-none">
-            <FormLabel>Convertir los archivos a pdf</FormLabel>
+            <FormLabel>Convertir los archivos a PDF</FormLabel>
             <FormDescription>
-              Para convertir los archivos a formato pdf debes tener instalado en
-              tu dispositivo libreoffice.
+              Para convertir los archivos a formato PDF debes cumplir los{" "}
+              <AlertCheckboxPdf />.
             </FormDescription>
           </div>
         </FormItem>
