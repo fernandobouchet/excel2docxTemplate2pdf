@@ -35,8 +35,9 @@ const AlertInstructions = () => {
                   (claves), y cada fila subsiguiente representará un conjunto de
                   datos correspondiente a esas claves (valores), para asignar un
                   nombre específico al archivo resultante debe haber una clave
-                  llamada "codigo" y/o "valor" en la hoja. El nombre del archivo
-                  resultante será en el formato: "Codigo-Nombre.docx/pdf".
+                  llamada &quot;codigo&quot; y/o &quot;valor&quot; en la hoja.
+                  El nombre del archivo resultante será en el formato:
+                  &quot;codigo-nombre.docx/pdf&quot;.
                 </li>
                 <li>
                   Selecciona el archivo DOCX que servirá como plantilla para
@@ -49,9 +50,10 @@ const AlertInstructions = () => {
                   PDF. Para ello debes cumplir con los <AlertCheckboxPdf />.
                 </li>
                 <li>
-                  Para iniciar la conversión, haz clic en el botón "Iniciar".
-                  Los archivos convertidos se descargarán automáticamente en tu
-                  carpeta de descargas (deberás otorgar permiso la primera vez).
+                  Para iniciar la conversión, haz clic en el botón
+                  &quot;Iniciar&quot;. Los archivos convertidos se descargarán
+                  automáticamente en tu carpeta de descargas (deberás otorgar
+                  permiso la primera vez).
                 </li>
               </ol>
             </div>
