@@ -4,10 +4,14 @@ import { LibreOfficeFileConverter } from "libreoffice-file-converter";
 import fs from "fs/promises";
 import fsSync from "fs";
 
-const inputDir = join(process.cwd(), "tmp");
+let inputDir = "/tmp";
 
-if (!fsSync.existsSync(inputDir)) {
-  fsSync.mkdirSync(inputDir);
+if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
+  inputDir = join(process.cwd(), "tmp");
+
+  if (!fsSync.existsSync(inputDir)) {
+    fsSync.mkdirSync(inputDir);
+  }
 }
 
 export async function POST(req: NextRequest) {
