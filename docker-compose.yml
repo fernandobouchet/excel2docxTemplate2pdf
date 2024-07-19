@@ -1,0 +1,9 @@
+services:
+  gotenberg:
+    image: gotenberg/gotenberg:8
+    ports:
+      - "3000:3000"
+    environment:
+      - GOTENBERG_API_BASIC_AUTH_USERNAME=${GOTENBERG_USER}
+      - GOTENBERG_API_BASIC_AUTH_PASSWORD=${GOTENBERG_PASS}
+    command: gotenberg --api-enable-basic-auth --chromium-disable-routes --pdfengines-disable-routes --prometheus-disable-route-logging --libreoffice-auto-start
