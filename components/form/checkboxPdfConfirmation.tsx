@@ -9,7 +9,6 @@ import {
   FormLabel,
   FormDescription,
 } from "@/components/ui/form";
-import { AlertCheckboxPdf } from "./alertCheckboxPdf";
 
 interface Props {
   form: UseFormReturn<
@@ -40,8 +39,7 @@ const CheckboxPdfConfirmation = ({ form }: Props) => {
           <div className="space-y-1 leading-none">
             <FormLabel>Convertir los archivos a PDF</FormLabel>
             <FormDescription>
-              Para convertir los archivos a formato PDF debes cumplir los{" "}
-              <AlertCheckboxPdf />.
+              Selecciona para convertir los archivos a formato PDF.
             </FormDescription>
           </div>
         </FormItem>

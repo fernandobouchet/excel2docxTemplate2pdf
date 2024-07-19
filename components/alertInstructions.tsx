@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { Button } from "@/components/ui/button";
-import { AlertCheckboxPdf } from "./form/alertCheckboxPdf";
 
 const AlertInstructions = () => {
   return (
@@ -47,7 +46,8 @@ const AlertInstructions = () => {
                 </li>
                 <li>
                   Puedes optar por convertir los archivos resultantes a formato
-                  PDF. Para ello debes cumplir con los <AlertCheckboxPdf />.
+                  PDF. De lo contrario serán descargados en el formato de la
+                  plantilla: (&quot;.docx&quot;).
                 </li>
                 <li>
                   Para iniciar la conversión, haz clic en el botón
