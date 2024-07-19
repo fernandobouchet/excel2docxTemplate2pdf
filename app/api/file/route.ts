@@ -3,6 +3,8 @@ import { Chromiumly, LibreOffice } from "chromiumly";
 
 Chromiumly.configure({
   endpoint: process.env.GOTENBERG_ENDPOINT!,
+  username: process.env.GOTENBERG_USER!,
+  password: process.env.GOTENBERG_PASS!,
 });
 
 export async function POST(req: NextRequest) {
