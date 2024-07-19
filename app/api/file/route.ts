@@ -1,24 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { join } from "path";
-import { LibreOfficeFileConverter } from "libreoffice-file-converter";
-import fs from "fs/promises";
-import fsSync from "fs";
+import { Chromiumly, LibreOffice } from "chromiumly";
 
-let inputDir = "/tmp";
-
-if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
-  inputDir = join(process.cwd(), "tmp");
-
-  if (!fsSync.existsSync(inputDir)) {
-    fsSync.mkdirSync(inputDir);
-  }
-}
+Chromiumly.configure({
+  endpoint: process.env.GOTENBERG_ENDPOINT!,
+});
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file");
-    let pdfPath: string;
 
     if (!(file instanceof File)) {
       return NextResponse.json(
@@ -33,26 +23,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const inputPath = join(inputDir, file.name);
-    await fs.writeFile(inputPath, buffer);
+    const inputFileBuffer = Buffer.from(await file.arrayBuffer());
 
-    const libreOfficeFileConverter = new LibreOfficeFileConverter({
-      childProcessOptions: {
-        timeout: 60 * 1000,
-      },
+    const outputFileBuffer = await LibreOffice.convert({
+      files: [{ data: inputFileBuffer, ext: "pdb" }],
     });
 
-    await libreOfficeFileConverter.convertFile(inputPath, inputDir, "pdf");
-
-    pdfPath = inputPath.replace(".docx", ".pdf");
-
-    const pdfBuffer = await fs.readFile(pdfPath);
-
-    await fs.unlink(inputPath);
-    await fs.unlink(pdfPath);
-
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(outputFileBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
