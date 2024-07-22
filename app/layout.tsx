@@ -15,6 +15,20 @@ export const metadata: Metadata = {
   title: "Conversor de datos excel",
   description:
     "Aplicación web que permite obtener datos de un archivo Excel, pasarlos a una plantilla en formato word y convertirlo a documento PDF.",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: light)",
+        type: "image/svg+xml",
+        url: "/favicon_light.svg",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        type: "image/svg+xml",
+        url: "/favicon_dark.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
