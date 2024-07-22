@@ -4,6 +4,8 @@ import { ThemeProvider } from "next-themes";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -34,7 +36,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
+          <Footer />
           <Toaster richColors theme="system" />
         </ThemeProvider>
       </body>
