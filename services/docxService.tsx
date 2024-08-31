@@ -30,6 +30,7 @@ const updateTemplate = async (template: Uint8Array, fileData: any) => {
       template,
       data: fileData,
       cmdDelimiter: ["{{", "}}"],
+      processLineBreaksAsNewText: true,
     });
 
     return {
